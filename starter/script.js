@@ -23,38 +23,55 @@ countriesContainer.style.opacity=1;
 
 }
 
+// const getCountryAndNeighbour= function(country){
+
+//     const request = new XMLHttpRequest();
+//     request.open('GET',`https://restcountries.com/v2/name/${country}`)
+//     request.send();
+//     request.addEventListener('load', function(){
+//        const [data] = JSON.parse(this.responseText);
+//        console.log(data);
+      
+     
+//        renderCountry(data);
+//        const [...neighbour]=data.borders;
+//        neighbour.forEach(neigh => { 
+//         const request2 = new XMLHttpRequest();
+//        request2.open('GET',`https://restcountries.com/v2/alpha/${neigh}`);
+//        request2.send();
+//        request2.addEventListener('load',function(){
+//         const data2 = JSON.parse(this.responseText);
+       
+//         renderCountry(data2,'neighbour')
+        
+//        })
+     
+       
+      
+
+//        })
+     
+
+//       })};
+
 const getCountryAndNeighbour= function(country){
 
-    const request = new XMLHttpRequest();
-    request.open('GET',`https://restcountries.com/v2/name/${country}`)
-    request.send();
-    request.addEventListener('load', function(){
-       const [data] = JSON.parse(this.responseText);
-       console.log(data);
+    const request = fetch(`https://restcountries.com/v2/name/${country}`).then(response => 
+      response.json()).then( data =>{
+        renderCountry(data[0])
+        const [...neighbour]=data[0].borders;
+        neighbour.forEach(neigh => { 
+         const request2 = fetch(`https://restcountries.com/v2/alpha/${neigh}`).then(response => 
+         response.json()).then( data2 => renderCountry(data2,'neighbour'));
       
-     
-       renderCountry(data);
-       const [...neighbour]=data.borders;
-       neighbour.forEach(neigh => { 
-        const request2 = new XMLHttpRequest();
-       request2.open('GET',`https://restcountries.com/v2/alpha/${neigh}`);
-       request2.send();
-       request2.addEventListener('load',function(){
-        const data2 = JSON.parse(this.responseText);
-       
-        renderCountry(data2,'neighbour')
-        
-       })
-     
-       
-      
-
-       })
-     
-
-      })};
+      });
     
-      getCountryAndNeighbour('rwanda');
+       })}
+     
+
+
+    
+      getCountryAndNeighbour('malawi');
     
 
 
