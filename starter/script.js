@@ -102,14 +102,19 @@ const imageContainer = document.querySelector('.images');
  
  ).then(()=>{
 currentImage.style.display='none';
-return createImage()
+return createImage('img/img-2.jpg')
  }).then(image =>{
   currentImage=image;
   console.log('Image 2 is loaded successfully');
   return wait(2);
  }).then(()=>{
-  
- } ).catch(err => console.log(err))
+  currentImage.style.display= 'none';
+  return createImage('img/img-3.jpg');
+ } ).then((image)=>{
+  currentImage=image;
+  console.log('Image 3 is loaded successfully');
+
+ }).catch(err => console.log(err));
 
 
 
