@@ -1,4 +1,4 @@
-// // 'use strict';
+// 'use strict';
 
 // const btn = document.querySelector('.btn-country');
 // const countriesContainer = document.querySelector('.countries');
@@ -27,7 +27,7 @@
 //   countriesContainer.insertAdjacentText("beforeend",msg);
 //   countriesContainer.style.opacity= 1;
 // }
-// //getjson function is in charge of throwing errors
+//getjson function is in charge of throwing errors
 // const getJson = function(url,errormsg="something went wrong"){
 //   return fetch(url).then((response) =>{
 //     //if country is not found throw an error to display that the country is not found
@@ -66,9 +66,9 @@
 //         //
 //       }
 //      btn.addEventListener('click',function(){
-//       getCountryAndNeighbour('usa');
+//       getCountryAndNeighbour('australia');
 //      })
- const wait = function(seconds){
+  const wait = function(seconds){
 return new Promise(function(resolve){
   setTimeout(resolve, seconds*1000);
 })
@@ -91,34 +91,83 @@ const imageContainer = document.querySelector('.images');
   })
 
  }
- let currentImage;
- createImage('img/img-1.jpg').then((image) => {
-  console.log(image);
-  currentImage=image;
-  console.log('Image 1 is loaded successfully');
-  return wait(2);
+//  createImage('img/img-1.jpg').then((image) => {
+//   console.log(image);
+//   currentImage=image;
+//   console.log('Image 1 is loaded successfully');
+//   return wait(2);
+
+// }
+ 
+//  ).then(()=>{
+// currentImage.style.display='none';
+// return createImage('img/img-2.jpg')
+//  }).then(image =>{
+//   currentImage=image;
+//   console.log('Image 2 is loaded successfully');
+//   return wait(2);
+//  }).then(()=>{
+//   currentImage.style.display= 'none';
+//   return createImage('img/img-3.jpg');
+//  } ).then((image)=>{
+//   currentImage=image;
+//   console.log('Image 3 is loaded successfully');
+
+//  }).catch(err => console.log(err));
+
+// const capitalCities= async function(country1,country2, country3) {
+//   try{
+// const [firstCountry] = await getJson(`https://restcountries.com/v2/name/${country1}`);
+// const [secondCountry] = await getJson(`https://restcountries.com/v2/name/${country2}`);
+// const [thirdCountry] = await getJson(`https://restcountries.com/v2/name/${country3}`);
+
+
+// let capitalCityArray = [];
+// capitalCityArray.push(firstCountry.capital);
+// capitalCityArray.push(secondCountry.capital);
+// capitalCityArray.push(thirdCountry.capital);
+
+
+// console.log(capitalCityArray);}
+// catch(err){
+//   console.error(err)
+// }
+// }
+
+// capitalCities('rwanda','burundi','tanzania');
+
+// const loadNPause = async function(){
+//   try{
+//     let image= await createImage('img/img-1.jpg')
+//     console.log('Image 1 is loaded successfully');
+//      await wait(2);
+//      image.style.display ='none';
+//      image =  await createImage('img/img-2.jpg')
+//      console.log('Image 2 is loaded successfully');
+//      await wait(2);
+//     image.style.display ='none';
+//      image = await createImage('img/img-3.jpg')
+//     console.log('Image 3 is loaded successfully');
+  
+//   } catch(err){
+//     console.log(err)
+//   }
+
+  
+// }
+
+// loadNPause();
+
+const loadAll= async function(imageArr){
+  try{
+    const imgs= await imageArr.map( img=> createImage(img));
+    const imagesEl = await Promise.all(imgs);
+    imagesEl.forEach(img => img.classList.add('parallel'))
+  }
+  catch(err){
+    console.err(err)
+  }
+
 
 }
- 
- ).then(()=>{
-currentImage.style.display='none';
-return createImage('img/img-2.jpg')
- }).then(image =>{
-  currentImage=image;
-  console.log('Image 2 is loaded successfully');
-  return wait(2);
- }).then(()=>{
-  currentImage.style.display= 'none';
-  return createImage('img/img-3.jpg');
- } ).then((image)=>{
-  currentImage=image;
-  console.log('Image 3 is loaded successfully');
-
- }).catch(err => console.log(err));
-
-
-
-
-
-
-
+loadAll(['img/img-1.jpg', 'img/img-2.jpg','img/img-3.jpg']);
